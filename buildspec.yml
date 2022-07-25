@@ -1,0 +1,17 @@
+version: 0.2 
+phases:
+  install:
+    runtime-versions:
+      reactjs: 16.13.1
+    commands:
+      - echo "Installing dependencies..."
+      - npm install
+      - npm install react-cli@0.3.1
+  build:
+    commands:
+      - echo "Building React project..."
+      - npm run build
+  post_build:
+    commands:
+      - echo "Updating files in the S3 bucket..."
+      - aws s3 sync dist/practise/ s3://your-aws-s3-bucket-name --delete
